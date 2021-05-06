@@ -19,5 +19,7 @@ Route::get('/', function () {
 
 Route::get('/login', [UserController::class, 'loginPage'])->name('login');
 Route::post('/login', [UserController::class, 'login']);
-Route::get('/email', [UserController::class, 'registerEmailPage']);
-
+Route::get('/email', [UserController::class, 'registerEmailPage'])->name('emailPage');
+Route::post('/email', [UserController::class, 'registerEmail'])->name('email');
+Route::get('/register/{email}/{mail}', [UserController::class, 'registerPage'])->name('registerPage')->middleware('verify_email');
+Route::post('/register', [UserController::class, 'register'])->name('register');

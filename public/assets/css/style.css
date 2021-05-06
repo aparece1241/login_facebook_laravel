@@ -23,12 +23,12 @@ body {
     padding: 25px;
     box-shadow: 0px 0px 150px #b7b7b787;
     border-radius: 13px;
-    width: 18em;
+    width: 19em;
 }
 
 .input-form {
     text-align: start;
-    margin: 20px 0px;
+    margin: 20px 9px;
 }
 
 .inputs {
@@ -55,9 +55,18 @@ body {
     opacity: 0.4;
 }
 
+.input_group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
 .label {
     font-size: 15px;
     margin-left: 1px;
+}
+
+.password {
+    letter-spacing: 5px;
 }
 
 #heading {
@@ -65,8 +74,12 @@ body {
     font-weight: inherit;
 }
 
-#register, #send-email {
+.register, #send-email {
     background-color: #f3a43f;
+}
+
+.error {
+    color: red;
 }
 
 #login {
