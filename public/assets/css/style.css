@@ -6,7 +6,7 @@ body {
 
 }
 
-#wrapper {
+.wrapper {
     position: fixed;
     border: solid 1px;
     width: 100vw;
@@ -17,7 +17,7 @@ body {
     background: aliceblue;
 }
 
-#form-container {
+.form-container {
     display: grid;
     text-align: center;
     padding: 25px;
@@ -37,6 +37,8 @@ body {
     border-radius: 7px;
     border: solid 1px #80808052;
     outline: none;
+    box-sizing: border-box;
+    padding: 0px 25px;
 }
 
 .buttons {
@@ -63,7 +65,7 @@ body {
     font-weight: inherit;
 }
 
-#register {
+#register, #send-email {
     background-color: #f3a43f;
 }
 
@@ -74,4 +76,13 @@ body {
 #facebook {
     background-color: #1d8ff1;
     width: 100%;
+}
+
+
+#submit-email {
+    text-align: center !important;
+}
+
+#register_label {
+    font-weight: bold;
 }
