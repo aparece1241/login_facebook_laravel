@@ -14,6 +14,9 @@
                     <br>
                     <br>
                     <input class="inputs" type="email" name="email" id="" placeholder="Email . . . ">
+                    @if ($errors->has('email'))
+                        <small class="error">{{ $errors->first('email') }}</small>
+                    @endif
                 </div>
                 <input class="buttons" id="send-email" type="submit" value="Register Email">
             </form>

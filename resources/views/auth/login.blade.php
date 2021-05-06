@@ -28,7 +28,7 @@
                 <a href="{{ route('emailPage') }}"><input class="buttons register" type="button" value="Register"></a>
             </form>
             or
-            <button class="buttons" id="facebook">Login with Facebook</button>
+            <a href="{{ route('fblogin') }}"><button class="buttons" id="facebook">Login with Facebook</button></a>
         </div>
     </div>
 @endsection

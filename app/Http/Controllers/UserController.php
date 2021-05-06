@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Notifications\RegisterEmail;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\LoginRequest;
+use Exception;
+
 class UserController extends Controller
 {
     public function loginPage(Request $request)
@@ -15,11 +18,16 @@ class UserController extends Controller
         return view('auth.login');
     }
 
+    public function successPage()
+    {
+        return view('sucess_page');
+    }
+
     public function login(LoginRequest $request)
     {
         $credentials = $request->only('email', 'password');
-
-        if(Auth::attempt($credentials)) {
+        dd(Auth::attempt($credentials));
+        if($request->auth->attempt($credentials)) {
             return "Successfully Login!";
         }
 
@@ -35,8 +43,11 @@ class UserController extends Controller
 
     public function registerEmail(Request $request)
     {
+        $request->validate([
+            'email' => 'required|email'
+        ]);
         $user = new User();
-        $user->email = '19104865@usc.edu.ph';
+        $user->email = $request->email;
         $user->notify(new RegisterEmail($user));
         return "Email Send!";
     }
@@ -48,6 +59,9 @@ class UserController extends Controller
 
     public function register(UserRequest $request)
     {
-        dd($request->all());
+        $data = $request->validated();
+        $data["password"] = Hash::make($data["password"]);
+        $user = User::create($data);
+        return "Success Page!";
     }
 }
