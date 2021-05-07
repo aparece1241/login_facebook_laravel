@@ -7,6 +7,9 @@
 @section('content')
     <div class="wrapper">
         <div class="form-container">
+            @if ($errors->has('message'))
+                <small class="error">Invalid credentials</small>
+            @endif
             <p id="heading">Login</p>
             <form action="{{ route('login') }}" method="post">
                 @csrf

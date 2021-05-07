@@ -18,9 +18,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login', [UserController::class, 'loginPage'])->name('loginPage');
+Route::get('/login', [UserController::class, 'loginPage'])->name('loginPage')->middleware('reverse_auth');
 Route::post('/login', [UserController::class, 'login'])->name('login');
-Route::get('/email', [UserController::class, 'registerEmailPage'])->name('emailPage');
+Route::get('/email', [UserController::class, 'registerEmailPage'])->name('emailPage')->middleware('reverse_auth');
 Route::post('/email', [UserController::class, 'registerEmail'])->name('email');
 Route::get('/register/{email}/{mail}', [UserController::class, 'registerPage'])->name('registerPage')->middleware('verify_email');
 Route::post('/register', [UserController::class, 'register'])->name('register');
