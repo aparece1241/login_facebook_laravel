@@ -28,6 +28,7 @@ class FbController extends Controller
                 'name', 'email', 'gender', 'birthday', 'age_range'
             ])->user();
             $facebookId = User::where('facebook_id', $user->id)->first();
+            $user = $facebookId;
             if(!$facebookId){
                 $user = User::create([
                     'name' => $user->name,
@@ -38,7 +39,13 @@ class FbController extends Controller
                     'facebook_id' => $user->id
                 ]);
             }
+
+            Auth::login($user);
+            return redirect()->route('info');
         } catch (Exception $exception) {
+            if(Auth::user()) {
+                return redirect()->route('info');
+            }
             dd($exception->getMessage());
         }
     }

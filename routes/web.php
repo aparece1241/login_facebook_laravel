@@ -27,3 +27,7 @@ Route::post('/register', [UserController::class, 'register'])->name('register');
 Route::get('/auth/facebook', [FbController::class, 'redirectFacebook'])->name('fblogin');
 Route::get('/facebook/callback', [FbController::class, 'loginFacebook'])->name('fb');
 Route::get('/success', [UserController::class, 'successPage']);
+Route::middleware(['auth'])->group(function() {
+    Route::get('/info', [UserController::class, 'info'])->name('info');
+});
+

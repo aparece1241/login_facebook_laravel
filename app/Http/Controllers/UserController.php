@@ -23,6 +23,11 @@ class UserController extends Controller
         return view('sucess_page');
     }
 
+    public function info()
+    {
+        return view('info', ['user' => Auth::user()]);
+    }
+
     public function login(LoginRequest $request)
     {
         $credentials = $request->only('email', 'password');
