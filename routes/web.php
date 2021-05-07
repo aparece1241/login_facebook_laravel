@@ -29,5 +29,6 @@ Route::get('/facebook/callback', [FbController::class, 'loginFacebook'])->name('
 Route::get('/success', [UserController::class, 'successPage']);
 Route::middleware(['auth'])->group(function() {
     Route::get('/info', [UserController::class, 'info'])->name('info');
+    Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 });
 

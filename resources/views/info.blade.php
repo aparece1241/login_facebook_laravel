@@ -7,7 +7,7 @@
 @section('content')
     <div class="wrapper">
         <div id="header">
-            <a href=""><button class="buttons register" style="float: right; margin: 7px 0.5em;" >Logout</button></a>
+            <a href="{{ route('logout') }}"><button class="buttons register" style="float: right; margin: 7px 0.5em;" >Logout</button></a>
         </div>
         <div class="form-container" style="width: 39em;height: 27rem;">
             <div id="division">

@@ -33,7 +33,7 @@ class UserController extends Controller
         $credentials = $request->only('email', 'password');
 
         if(Auth::attempt($credentials)) {
-            return "Successfully Login!";
+            return redirect()->route('info');
         }
 
         return back()->withErrors([
@@ -54,7 +54,7 @@ class UserController extends Controller
         $user = new User();
         $user->email = $request->email;
         $user->notify(new RegisterEmail($user));
-        return "Email Send!";
+        return back()->with('message', 'Successfully send email!');
     }
 
     public function registerPage(Request $request)
@@ -68,5 +68,11 @@ class UserController extends Controller
         $data["password"] = Hash::make($data["password"]);
         $user = User::create($data);
         return ;
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('loginPage');
     }
 }
