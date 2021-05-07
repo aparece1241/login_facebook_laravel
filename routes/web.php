@@ -24,6 +24,6 @@ Route::get('/email', [UserController::class, 'registerEmailPage'])->name('emailP
 Route::post('/email', [UserController::class, 'registerEmail'])->name('email');
 Route::get('/register/{email}/{mail}', [UserController::class, 'registerPage'])->name('registerPage')->middleware('verify_email');
 Route::post('/register', [UserController::class, 'register'])->name('register');
-Route::get('auth/facebook', [FbController::class, 'redirectFacebook'])->name('fblogin');
-Route::get('facebook/callback', [FbController::class, 'loginFacebook'])->name('fb');
+Route::get('/auth/facebook', [FbController::class, 'redirectFacebook'])->name('fblogin');
+Route::get('/facebook/callback', [FbController::class, 'loginFacebook'])->name('fb');
 Route::get('/success', [UserController::class, 'successPage']);

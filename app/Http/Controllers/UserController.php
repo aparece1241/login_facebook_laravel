@@ -26,8 +26,8 @@ class UserController extends Controller
     public function login(LoginRequest $request)
     {
         $credentials = $request->only('email', 'password');
-        dd(Auth::attempt($credentials));
-        if($request->auth->attempt($credentials)) {
+
+        if(Auth::attempt($credentials)) {
             return "Successfully Login!";
         }
 
@@ -62,6 +62,6 @@ class UserController extends Controller
         $data = $request->validated();
         $data["password"] = Hash::make($data["password"]);
         $user = User::create($data);
-        return "Success Page!";
+        return ;
     }
 }

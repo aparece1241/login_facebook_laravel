@@ -18,6 +18,7 @@ class FbController extends Controller
         return Socialite::driver('facebook')->fields([
             'first_name', 'last_name', 'birthday', 'age', 'gender'
         ])->scopes(['user_birthday', 'email', 'user_gender', 'user_age_range'])->redirect();
+
     }
 
     public function loginFacebook()
@@ -27,14 +28,13 @@ class FbController extends Controller
                 'name', 'email', 'gender', 'birthday', 'age_range'
             ])->user();
             $facebookId = User::where('facebook_id', $user->id)->first();
-
             if(!$facebookId){
                 $user = User::create([
                     'name' => $user->name,
                     'email' => $user->email,
-                    'gender' => $user->gender,
-                    'age' => Carbon::parse($user->birthday)->diffInYears(Carbon::now()),
-                    'birthday' => $user->birthday,
+                    'gender' => $user['gender'],
+                    'age' => Carbon::parse($user['birthday'])->diffInYears(Carbon::now()),
+                    'birthday' => Carbon::parse($user['birthday']),
                     'facebook_id' => $user->id
                 ]);
             }
