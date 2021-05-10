@@ -27,6 +27,7 @@
                         <small class="error">{{ $errors->first('password') }}</small>
                     @endif
                 </div>
+                <a href="{{ route('resetPasswordEmailPage') }}" style="text-decoration: none"><p>Forget password?</p></a>
                 <input class="buttons" id="login" type="submit" value="Login">
                 <a href="{{ route('emailPage') }}"><input class="buttons register" type="button" value="Register"></a>
             </form>

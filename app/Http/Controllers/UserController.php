@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Hash;
 use App\Notifications\RegisterEmail;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\LoginRequest;
+use App\Models\RegisterEmail as ModelsRegisterEmail;
+use App\Notifications\ResetPasswordNotif;
 use Exception;
 
 class UserController extends Controller
@@ -54,6 +56,8 @@ class UserController extends Controller
         $user = new User();
         $user->email = $request->email;
         $user->notify(new RegisterEmail($user));
+        ModelsRegisterEmail::create(["email" => $request->email]);
+
         return back()->with('message', 'Successfully send email!');
     }
 
@@ -74,5 +78,27 @@ class UserController extends Controller
     {
         Auth::logout();
         return redirect()->route('loginPage');
+    }
+
+    public function resetPasswordPage(Request $request)
+    {
+        return view('auth.reset_password', ['email' => $request->mail]);
+    }
+
+    function resetPassword(Request $request)
+    {
+        dd($request);
+    }
+
+    public function resetPasswordEmailPage()
+    {
+        return view('reset_password_email');
+    }
+
+    public function sendResetPasswordEmail(Request $request)
+    {
+        $user = User::where('email', $request->email)->first();
+        $user->notify(new ResetPasswordNotif($user));
+        return back()->with('message', 'Email Send!');
     }
 }

@@ -63,6 +63,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'verify_email' => \App\Http\Middleware\ValidateEmailCrypt::class,
-        'reverse_auth' => \App\Http\Middleware\ReverseAuthCheck::class
+        'reverse_auth' => \App\Http\Middleware\ReverseAuthCheck::class,
+        'pwd_link_checker' => \App\Http\Middleware\PasswordLinkChecker::class
     ];
 }

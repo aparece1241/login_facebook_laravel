@@ -27,6 +27,17 @@ Route::post('/register', [UserController::class, 'register'])->name('register');
 Route::get('/auth/facebook', [FbController::class, 'redirectFacebook'])->name('fblogin');
 Route::get('/facebook/callback', [FbController::class, 'loginFacebook'])->name('fb');
 Route::get('/success', [UserController::class, 'successPage']);
+
+Route::get('/reset-password/{mail}', [UserController::class, 'resetPasswordPage'])->middleware('pwd_link_checker')->name('resetPasswordPage');
+Route::post('/reset-password/', [UserController::class, 'resetPassword'])->name('resetPassword');
+
+Route::get('/reset-email-request', [UserController::class, 'resetPasswordEmailPage'])->name('resetPasswordEmailPage');
+Route::post('/reset-email-request', [UserController::class, 'sendResetPasswordEmail'])->name('resetPasswordEmail');
+
+Route::middleware(["verify_email"])->group(function() {
+
+});
+
 Route::middleware(['auth'])->group(function() {
     Route::get('/info', [UserController::class, 'info'])->name('info');
     Route::get('/logout', [UserController::class, 'logout'])->name('logout');

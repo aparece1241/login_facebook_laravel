@@ -2,25 +2,24 @@
 
 namespace App\Notifications;
 
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Cookie;
-use Carbon\Carbon;
 
-class RegisterEmail extends Notification
+class ResetPasswordNotif extends Notification
 {
     use Queueable;
 
-    private $data;
+    protected $data;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($data)
+     public function __construct($data)
     {
         $this->data = $data;
     }
@@ -44,10 +43,11 @@ class RegisterEmail extends Notification
      */
     public function toMail($notifiable)
     {
+        $this->encryptEmail($this->data);
         return (new MailMessage)
-                    ->line('Thank you for submittion.')
-                    ->line('Click this button to continue to register!')
-                    ->action('Register', route('registerPage',['email' => $this->encryptEmail($this->data), 'mail' => $this->data->email]))
+                    ->line('Reset Password')
+                    ->line('Note: This link will expire in 2 minutes')
+                    ->action('Reset Password', url('/reset-password/'. $this->data->email))
                     ->line('Thank you for using our application!');
     }
 
@@ -64,6 +64,7 @@ class RegisterEmail extends Notification
         ];
     }
 
+
     /**
      * Custom Funtion
      *
@@ -74,7 +75,7 @@ class RegisterEmail extends Notification
     {
         $enc = openssl_encrypt($data->email, env('ENCRYPT_CIPHER'),env('ENCRYPT_KEY'),0,env('ENCRYPRION_IV'));
         $enc = str_replace("/",'slash', $enc);
-        Session::put('token', ['data' => $enc, 'exp' => Carbon::now()->addMinutes(2)]);
+        Session::put('token_reset_pwd', ['data' => $enc, 'exp' => Carbon::now()->addMinutes(2)]);
         return $enc;
     }
 }
